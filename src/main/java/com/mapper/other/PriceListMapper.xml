@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.other.PriceListMapper">
+  <resultMap id="BaseResultMap" type="com.model.other.PriceList">
+    <id column="price_list_id" jdbcType="VARCHAR" property="priceListId" />
+    <result column="product_price_name" jdbcType="VARCHAR" property="productPriceName" />
+    <result column="product_list_desc" jdbcType="VARCHAR" property="productListDesc" />
+    <result column="product_unit_price" jdbcType="VARCHAR" property="productUnitPrice" />
+    <result column="product_selling_price" jdbcType="VARCHAR" property="productSellingPrice" />
+    <result column="product_source_company" jdbcType="VARCHAR" property="productSourceCompany" />
+    <result column="product_remark" jdbcType="VARCHAR" property="productRemark" />
+    <result column="product_list_createtime" jdbcType="TIMESTAMP" property="productListCreatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    price_list_id, product_price_name, product_list_desc, product_unit_price, product_selling_price, 
+    product_source_company, product_remark, product_list_createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_price_list
+    where price_list_id = #{priceListId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from product_price_list
+    where price_list_id = #{priceListId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.other.PriceList">
+    insert into product_price_list (price_list_id, product_price_name, product_list_desc, 
+      product_unit_price, product_selling_price, 
+      product_source_company, product_remark, product_list_createtime
+      )
+    values (#{priceListId,jdbcType=VARCHAR}, #{productPriceName,jdbcType=VARCHAR}, #{productListDesc,jdbcType=VARCHAR}, 
+      #{productUnitPrice,jdbcType=VARCHAR}, #{productSellingPrice,jdbcType=VARCHAR}, 
+      #{productSourceCompany,jdbcType=VARCHAR}, #{productRemark,jdbcType=VARCHAR}, #{productListCreatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.other.PriceList">
+    insert into product_price_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="priceListId != null">
+        price_list_id,
+      </if>
+      <if test="productPriceName != null">
+        product_price_name,
+      </if>
+      <if test="productListDesc != null">
+        product_list_desc,
+      </if>
+      <if test="productUnitPrice != null">
+        product_unit_price,
+      </if>
+      <if test="productSellingPrice != null">
+        product_selling_price,
+      </if>
+      <if test="productSourceCompany != null">
+        product_source_company,
+      </if>
+      <if test="productRemark != null">
+        product_remark,
+      </if>
+      <if test="productListCreatetime != null">
+        product_list_createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="priceListId != null">
+        #{priceListId,jdbcType=VARCHAR},
+      </if>
+      <if test="productPriceName != null">
+        #{productPriceName,jdbcType=VARCHAR},
+      </if>
+      <if test="productListDesc != null">
+        #{productListDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="productUnitPrice != null">
+        #{productUnitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="productSellingPrice != null">
+        #{productSellingPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="productSourceCompany != null">
+        #{productSourceCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="productRemark != null">
+        #{productRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="productListCreatetime != null">
+        #{productListCreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.other.PriceList">
+    update product_price_list
+    <set>
+      <if test="productPriceName != null">
+        product_price_name = #{productPriceName,jdbcType=VARCHAR},
+      </if>
+      <if test="productListDesc != null">
+        product_list_desc = #{productListDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="productUnitPrice != null">
+        product_unit_price = #{productUnitPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="productSellingPrice != null">
+        product_selling_price = #{productSellingPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="productSourceCompany != null">
+        product_source_company = #{productSourceCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="productRemark != null">
+        product_remark = #{productRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="productListCreatetime != null">
+        product_list_createtime = #{productListCreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where price_list_id = #{priceListId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.other.PriceList">
+    update product_price_list
+    set product_price_name = #{productPriceName,jdbcType=VARCHAR},
+      product_list_desc = #{productListDesc,jdbcType=VARCHAR},
+      product_unit_price = #{productUnitPrice,jdbcType=VARCHAR},
+      product_selling_price = #{productSellingPrice,jdbcType=VARCHAR},
+      product_source_company = #{productSourceCompany,jdbcType=VARCHAR},
+      product_remark = #{productRemark,jdbcType=VARCHAR},
+      product_list_createtime = #{productListCreatetime,jdbcType=TIMESTAMP}
+    where price_list_id = #{priceListId,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectPriceList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_price_list
+   
+  </select>
+</mapper>

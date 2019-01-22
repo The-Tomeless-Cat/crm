@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.system.AfterSalesMapper">
+  <resultMap id="BaseResultMap" type="com.model.system.AfterSales">
+    <id column="after_sales_id" jdbcType="VARCHAR" property="afterSalesId" />
+    <result column="order_information" jdbcType="VARCHAR" property="orderInformation" />
+    <result column="after_sales_dsc" jdbcType="VARCHAR" property="afterSalesDsc" />
+    <result column="after_sales_create_time" jdbcType="TIMESTAMP" property="afterSalesCreateTime" />
+    <result column="waiter_id" jdbcType="VARCHAR" property="waiterId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    after_sales_id, order_information, after_sales_dsc, after_sales_create_time, waiter_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from after_sales
+    where after_sales_id = #{afterSalesId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from after_sales
+    where after_sales_id = #{afterSalesId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.system.AfterSales">
+    insert into after_sales (after_sales_id, order_information, after_sales_dsc, 
+      after_sales_create_time, waiter_id)
+    values (#{afterSalesId,jdbcType=VARCHAR}, #{orderInformation,jdbcType=VARCHAR}, #{afterSalesDsc,jdbcType=VARCHAR}, 
+      #{afterSalesCreateTime,jdbcType=TIMESTAMP}, #{waiterId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.system.AfterSales">
+    insert into after_sales
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="afterSalesId != null">
+        after_sales_id,
+      </if>
+      <if test="orderInformation != null">
+        order_information,
+      </if>
+      <if test="afterSalesDsc != null">
+        after_sales_dsc,
+      </if>
+      <if test="afterSalesCreateTime != null">
+        after_sales_create_time,
+      </if>
+      <if test="waiterId != null">
+        waiter_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="afterSalesId != null">
+        #{afterSalesId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderInformation != null">
+        #{orderInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="afterSalesDsc != null">
+        #{afterSalesDsc,jdbcType=VARCHAR},
+      </if>
+      <if test="afterSalesCreateTime != null">
+        #{afterSalesCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="waiterId != null">
+        #{waiterId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.system.AfterSales">
+    update after_sales
+    <set>
+      <if test="orderInformation != null">
+        order_information = #{orderInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="afterSalesDsc != null">
+        after_sales_dsc = #{afterSalesDsc,jdbcType=VARCHAR},
+      </if>
+      <if test="afterSalesCreateTime != null">
+        after_sales_create_time = #{afterSalesCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="waiterId != null">
+        waiter_id = #{waiterId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where after_sales_id = #{afterSalesId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.system.AfterSales">
+    update after_sales
+    set order_information = #{orderInformation,jdbcType=VARCHAR},
+      after_sales_dsc = #{afterSalesDsc,jdbcType=VARCHAR},
+      after_sales_create_time = #{afterSalesCreateTime,jdbcType=TIMESTAMP},
+      waiter_id = #{waiterId,jdbcType=VARCHAR}
+    where after_sales_id = #{afterSalesId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="queryAfterSalesAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from after_sales
+  </select>
+</mapper>

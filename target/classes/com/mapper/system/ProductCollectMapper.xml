@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.system.ProductCollectMapper">
+  <resultMap id="BaseResultMap" type="com.model.system.ProductCollect">
+    <id column="product_msg_id" jdbcType="VARCHAR" property="productMsgId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_type" jdbcType="VARCHAR" property="productType" />
+    <result column="market_time" jdbcType="TIMESTAMP" property="marketTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    product_msg_id, product_name, product_type, market_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_collect
+    where product_msg_id = #{productMsgId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from product_collect
+    where product_msg_id = #{productMsgId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.system.ProductCollect">
+    insert into product_collect (product_msg_id, product_name, product_type, 
+      market_time)
+    values (#{productMsgId,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{productType,jdbcType=VARCHAR}, 
+      #{marketTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.system.ProductCollect">
+    insert into product_collect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productMsgId != null">
+        product_msg_id,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productType != null">
+        product_type,
+      </if>
+      <if test="marketTime != null">
+        market_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productMsgId != null">
+        #{productMsgId,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="marketTime != null">
+        #{marketTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.system.ProductCollect">
+    update product_collect
+    <set>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        product_type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="marketTime != null">
+        market_time = #{marketTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where product_msg_id = #{productMsgId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.system.ProductCollect">
+    update product_collect
+    set product_name = #{productName,jdbcType=VARCHAR},
+      product_type = #{productType,jdbcType=VARCHAR},
+      market_time = #{marketTime,jdbcType=TIMESTAMP}
+    where product_msg_id = #{productMsgId,jdbcType=VARCHAR}
+  </update>
+   <select id="selectAllproductCollect" parameterType="com.model.system.ProductCollect" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product_collect
+  </select>
+  <select id="likeQuery" resultMap="BaseResultMap"
+		parameterType="com.model.system.ProductCollect">
+		select
+		<include refid="Base_Column_List" />
+		from product_collect where product_name like '%${value}%' 
+	</select>
+</mapper>

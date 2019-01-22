@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.system.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.model.system.Menu" >
+    <id column="menu_id" property="menuId" jdbcType="VARCHAR" />
+    <result column="menu_pid" property="menuPid" jdbcType="VARCHAR" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_desc" property="menuDesc" jdbcType="VARCHAR" />
+    <result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    menu_id, menu_pid, menu_name, menu_desc, menu_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_menu
+    where menu_id = #{roleMenuId,jdbcType=VARCHAR}
+  </delete>
+ <!--  <delete id="deleteByPrimaryKey1" parameterType="java.lang.String" >
+    delete from sys_role_menu
+    where role_id = #{roleId,jdbcType=VARCHAR}
+  </delete> -->
+  <insert id="insert" parameterType="com.model.system.Menu" >
+    insert into sys_menu (menu_id, menu_pid, menu_name, 
+      menu_desc, menu_url)
+    values (#{menuId,jdbcType=VARCHAR}, #{menuPid,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, 
+      #{menuDesc,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.system.Menu" >
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="menuPid != null" >
+        menu_pid,
+      </if>
+      <if test="menuName != null" >
+        menu_name,
+      </if>
+      <if test="menuDesc != null" >
+        menu_desc,
+      </if>
+      <if test="menuUrl != null" >
+        menu_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuPid != null" >
+        #{menuPid,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDesc != null" >
+        #{menuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        #{menuUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.system.Menu" >
+    update sys_menu
+    <set >
+      <if test="menuPid != null" >
+        menu_pid = #{menuPid,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuDesc != null" >
+        menu_desc = #{menuDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        menu_url = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.system.Menu" >
+    update sys_menu
+    set menu_pid = #{menuPid,jdbcType=VARCHAR},
+      menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_desc = #{menuDesc,jdbcType=VARCHAR},
+      menu_url = #{menuUrl,jdbcType=VARCHAR}
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+  	<select id="selectAllMenu" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu 
+	</select>
+	<select id="selectAllMenu1" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu where menu_pid = 'root'
+	</select>
+	<select id="queryMenuByUserId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+
+		SELECT
+		sys_menu.menu_id,
+		sys_menu.menu_pid,
+		sys_menu.menu_name,
+		sys_menu.menu_desc,
+		sys_menu.menu_url
+		FROM
+		sys_user_role
+		INNER JOIN sys_role ON sys_user_role.role_id = sys_role.role_id
+		INNER JOIN sys_role_menu ON sys_role.role_id = sys_role_menu.role_id
+		INNER JOIN sys_menu ON sys_role_menu.menu_id = sys_menu.menu_id
+		where user_id = #{userId,jdbcType=VARCHAR}
+
+	</select>
+
+
+	<select id="queryMenuSonByMenuId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_menu
+		where menu_pid = #{menuId,jdbcType=VARCHAR}
+	</select>
+</mapper>

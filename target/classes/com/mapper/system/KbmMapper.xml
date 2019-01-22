@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.system.KbmMapper" >
+  <resultMap id="BaseResultMap" type="com.model.system.Kbm" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="Technical_name" property="technicalName" jdbcType="VARCHAR" />
+    <result column="Parts" property="parts" jdbcType="VARCHAR" />
+    <result column="kbm_desc" property="kbmDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, Technical_name, Parts, kbm_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_kbm
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_kbm
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+   <delete id="deleteByPrimaryKey1" parameterType="java.lang.String" >
+    delete from sys_kbm
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.model.system.Kbm" >
+    insert into sys_kbm (id, Technical_name, Parts, 
+      kbm_desc)
+    values (#{id,jdbcType=INTEGER}, #{technicalName,jdbcType=VARCHAR}, #{parts,jdbcType=VARCHAR}, 
+      #{kbmDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.system.Kbm" >
+    insert into sys_kbm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="technicalName != null" >
+        Technical_name,
+      </if>
+      <if test="parts != null" >
+        Parts,
+      </if>
+      <if test="kbmDesc != null" >
+        kbm_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="technicalName != null" >
+        #{technicalName,jdbcType=VARCHAR},
+      </if>
+      <if test="parts != null" >
+        #{parts,jdbcType=VARCHAR},
+      </if>
+      <if test="kbmDesc != null" >
+        #{kbmDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.system.Kbm" >
+    update sys_kbm
+    <set >
+      <if test="technicalName != null" >
+        Technical_name = #{technicalName,jdbcType=VARCHAR},
+      </if>
+      <if test="parts != null" >
+        Parts = #{parts,jdbcType=VARCHAR},
+      </if>
+      <if test="kbmDesc != null" >
+        kbm_desc = #{kbmDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.system.Kbm" >
+    update sys_kbm
+    set Technical_name = #{technicalName,jdbcType=VARCHAR},
+      Parts = #{parts,jdbcType=VARCHAR},
+      kbm_desc = #{kbmDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryAllKbm" resultMap="BaseResultMap" parameterType="com.model.system.Kbm" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_kbm
+   
+  </select>
+</mapper>

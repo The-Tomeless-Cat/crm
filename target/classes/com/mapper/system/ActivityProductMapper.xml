@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.system.ActivityProductMapper" >
+  <resultMap id="BaseResultMap" type="com.model.system.ActivityProduct" >
+    <id column="activity_product_id" property="activityProductId" jdbcType="VARCHAR" />
+    <result column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    activity_product_id, activity_id, product_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_activity_product
+    where activity_product_id = #{activityProductId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_activity_product
+    where activity_product_id = #{activityProductId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.system.ActivityProduct" >
+    insert into sys_activity_product (activity_product_id, activity_id, product_id
+      )
+    values (#{activityProductId,jdbcType=VARCHAR}, #{activityId,jdbcType=VARCHAR}, #{productId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.system.ActivityProduct" >
+    insert into sys_activity_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityProductId != null" >
+        activity_product_id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityProductId != null" >
+        #{activityProductId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.system.ActivityProduct" >
+    update sys_activity_product
+    <set >
+      <if test="activityId != null" >
+        activity_id = #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where activity_product_id = #{activityProductId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.system.ActivityProduct" >
+    update sys_activity_product
+    set activity_id = #{activityId,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR}
+    where activity_product_id = #{activityProductId,jdbcType=VARCHAR}
+  </update>
+   
+  <delete id="deleteByActivityProduct" parameterType="com.model.system.ActivityProduct">
+  	delete from sys_activity_product
+    where activity_id = #{activityId,jdbcType=VARCHAR}
+    and  product_id = #{productId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

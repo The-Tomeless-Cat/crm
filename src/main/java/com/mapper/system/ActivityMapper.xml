@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.system.ActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.model.system.Activity" >
+    <id column="activity_id" property="activityId" jdbcType="VARCHAR" />
+    <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
+    <result column="activity_type" property="activityType" jdbcType="VARCHAR" />
+    <result column="activity_status" property="activityStatus" jdbcType="VARCHAR" />
+    <result column="activity_description" property="activityDescription" jdbcType="VARCHAR" />
+    <result column="activity_time" property="activityTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    activity_id, activity_name, activity_type, activity_status, activity_description, 
+    activity_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_activity
+    where activity_id = #{activityId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_activity
+    where activity_id = #{activityId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.system.Activity" >
+    insert into sys_activity (activity_id, activity_name, activity_type, 
+      activity_status, activity_description, activity_time
+      )
+    values (#{activityId,jdbcType=VARCHAR}, #{activityName,jdbcType=VARCHAR}, #{activityType,jdbcType=VARCHAR}, 
+      #{activityStatus,jdbcType=VARCHAR}, #{activityDescription,jdbcType=VARCHAR}, #{activityTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.system.Activity" >
+    insert into sys_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="activityName != null" >
+        activity_name,
+      </if>
+      <if test="activityType != null" >
+        activity_type,
+      </if>
+      <if test="activityStatus != null" >
+        activity_status,
+      </if>
+      <if test="activityDescription != null" >
+        activity_description,
+      </if>
+      <if test="activityTime != null" >
+        activity_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        #{activityId,jdbcType=VARCHAR},
+      </if>
+      <if test="activityName != null" >
+        #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityType != null" >
+        #{activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="activityStatus != null" >
+        #{activityStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="activityDescription != null" >
+        #{activityDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="activityTime != null" >
+        #{activityTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.system.Activity" >
+    update sys_activity
+    <set >
+      <if test="activityName != null" >
+        activity_name = #{activityName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityType != null" >
+        activity_type = #{activityType,jdbcType=VARCHAR},
+      </if>
+      <if test="activityStatus != null" >
+        activity_status = #{activityStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="activityDescription != null" >
+        activity_description = #{activityDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="activityTime != null" >
+        activity_time = #{activityTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where activity_id = #{activityId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.system.Activity" >
+    update sys_activity
+    set activity_name = #{activityName,jdbcType=VARCHAR},
+      activity_type = #{activityType,jdbcType=VARCHAR},
+      activity_status = #{activityStatus,jdbcType=VARCHAR},
+      activity_description = #{activityDescription,jdbcType=VARCHAR},
+      activity_time = #{activityTime,jdbcType=VARCHAR}
+    where activity_id = #{activityId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAllActivity" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_activity
+  </select>
+</mapper>

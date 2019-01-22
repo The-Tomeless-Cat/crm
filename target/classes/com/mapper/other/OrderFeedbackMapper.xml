@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.other.OrderFeedbackMapper">
+  <resultMap id="BaseResultMap" type="com.model.other.OrderFeedback">
+    <id column="feedback_id" jdbcType="VARCHAR" property="feedbackId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_sex" jdbcType="VARCHAR" property="userSex" />
+    <result column="user_contact" jdbcType="VARCHAR" property="userContact" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_buydate" jdbcType="VARCHAR" property="productBuydate" />
+    <result column="product_problem" jdbcType="VARCHAR" property="productProblem" />
+    <result column="feedback_createtime" jdbcType="TIMESTAMP" property="feedbackCreatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    feedback_id, user_name, user_sex, user_contact, product_name, product_buydate, product_problem, 
+    feedback_createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_order_feedback
+    where feedback_id = #{feedbackId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_order_feedback
+    where feedback_id = #{feedbackId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.other.OrderFeedback">
+    insert into sys_order_feedback (feedback_id, user_name, user_sex, 
+      user_contact, product_name, product_buydate, 
+      product_problem, feedback_createtime)
+    values (#{feedbackId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userSex,jdbcType=VARCHAR}, 
+      #{userContact,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{productBuydate,jdbcType=VARCHAR}, 
+      #{productProblem,jdbcType=VARCHAR}, #{feedbackCreatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.other.OrderFeedback">
+    insert into sys_order_feedback
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="feedbackId != null">
+        feedback_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="userContact != null">
+        user_contact,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productBuydate != null">
+        product_buydate,
+      </if>
+      <if test="productProblem != null">
+        product_problem,
+      </if>
+      <if test="feedbackCreatetime != null">
+        feedback_createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="feedbackId != null">
+        #{feedbackId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userContact != null">
+        #{userContact,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productBuydate != null">
+        #{productBuydate,jdbcType=VARCHAR},
+      </if>
+      <if test="productProblem != null">
+        #{productProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackCreatetime != null">
+        #{feedbackCreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.other.OrderFeedback">
+    update sys_order_feedback
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userContact != null">
+        user_contact = #{userContact,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productBuydate != null">
+        product_buydate = #{productBuydate,jdbcType=VARCHAR},
+      </if>
+      <if test="productProblem != null">
+        product_problem = #{productProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackCreatetime != null">
+        feedback_createtime = #{feedbackCreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where feedback_id = #{feedbackId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.other.OrderFeedback">
+    update sys_order_feedback
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=VARCHAR},
+      user_contact = #{userContact,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_buydate = #{productBuydate,jdbcType=VARCHAR},
+      product_problem = #{productProblem,jdbcType=VARCHAR},
+      feedback_createtime = #{feedbackCreatetime,jdbcType=TIMESTAMP}
+    where feedback_id = #{feedbackId,jdbcType=VARCHAR}
+  </update>
+  
+   <select id="selectAllFeedback" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_order_feedback
+  
+  </select>
+   <select id="likeQuery" parameterType="com.model.other.OrderFeedback" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_order_feedback where user_name like '%${value}%' 
+  
+  </select>
+</mapper>

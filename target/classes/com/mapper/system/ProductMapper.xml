@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.system.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.model.system.Product" >
+    <id column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_money" property="productMoney" jdbcType="VARCHAR" />
+    <result column="product_type" property="productType" jdbcType="VARCHAR" />
+    <result column="product_dsc" property="productDsc" jdbcType="VARCHAR" />
+    <result column="pruduct_kucun" property="pruductKucun" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_id, product_name, product_money, product_type, product_dsc, pruduct_kucun
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_product
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_product
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.model.system.Product" >
+    insert into sys_product (product_id, product_name, product_money, 
+      product_type, product_dsc, pruduct_kucun
+      )
+    values (#{productId,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{productMoney,jdbcType=VARCHAR}, 
+      #{productType,jdbcType=VARCHAR}, #{productDsc,jdbcType=VARCHAR}, #{pruductKucun,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.system.Product" >
+    insert into sys_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productMoney != null" >
+        product_money,
+      </if>
+      <if test="productType != null" >
+        product_type,
+      </if>
+      <if test="productDsc != null" >
+        product_dsc,
+      </if>
+      <if test="pruductKucun != null" >
+        pruduct_kucun,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productMoney != null" >
+        #{productMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productDsc != null" >
+        #{productDsc,jdbcType=VARCHAR},
+      </if>
+      <if test="pruductKucun != null" >
+        #{pruductKucun,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.system.Product" >
+    update sys_product
+    <set >
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productMoney != null" >
+        product_money = #{productMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null" >
+        product_type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productDsc != null" >
+        product_dsc = #{productDsc,jdbcType=VARCHAR},
+      </if>
+      <if test="pruductKucun != null" >
+        pruduct_kucun = #{pruductKucun,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.system.Product" >
+    update sys_product
+    set product_name = #{productName,jdbcType=VARCHAR},
+      product_money = #{productMoney,jdbcType=VARCHAR},
+      product_type = #{productType,jdbcType=VARCHAR},
+      product_dsc = #{productDsc,jdbcType=VARCHAR},
+      pruduct_kucun = #{pruductKucun,jdbcType=VARCHAR}
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectAllProduct" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_product 
+
+	</select>
+</mapper>
